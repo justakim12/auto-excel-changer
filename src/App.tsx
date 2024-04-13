@@ -3,7 +3,7 @@ import { InboxOutlined } from '@ant-design/icons'
 import type { UploadProps } from 'antd'
 import { Button, message, Upload } from 'antd'
 import './App.css'
-import { downloadExcel, processExcel } from './excelUtils'
+import { downloadExcel, processExcel } from './utils/excelUtils'
 
 const { Dragger } = Upload
 

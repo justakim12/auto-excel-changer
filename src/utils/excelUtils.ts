@@ -10,7 +10,7 @@ export const processExcel = (file: File, setFileData: (data: any) => void) => {
     const originalData: any[] = XLSX.utils.sheet_to_json(worksheet, { header: 1 })
 
     // Define what you want to process
-    const modifiedData = addExcelColumns(originalData)
+    const modifiedData = addProcessResultColumns(originalData)
 
     const newWorkbook = XLSX.utils.book_new()
     const newWorksheet = XLSX.utils.aoa_to_sheet(modifiedData)
@@ -22,15 +22,18 @@ export const processExcel = (file: File, setFileData: (data: any) => void) => {
   reader.readAsArrayBuffer(file)
 }
 
-function addExcelColumns(originalData: any[]): any[] {
+function addProcessResultColumns(originalData: any[]): any[] {
   return originalData.map((row: any, index: number) => {
     if (index === 0) {
-      row.push('sum results')
+      row.push('Sum Results', 'Divide Results', 'Multiply Results');
     } else {
-      row.push(row[0] + row[1])
+      const sum = row[0] + row[1];
+      const divide = row[0] / row[1];
+      const multiply = row[0] * row[1];
+      row.push(sum, divide, multiply);
     }
-    return row
-  })
+    return row;
+  });
 }
 
 export const downloadExcel = (fileData: any) => {
